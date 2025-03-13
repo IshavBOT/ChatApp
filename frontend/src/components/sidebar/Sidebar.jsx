@@ -4,6 +4,7 @@ import LogoutButton from "./LogoutButton";
 import SearchInput from "./SearchInput";
 
 const Sidebar = () => {
+    
 	return (
 		<div className='border-r border-gray-600/50 p-4 flex flex-col bg-gray-800/95 backdrop-blur-md min-w-[280px] shadow-xl'>
 			<h2 className='text-2xl font-bold text-white mb-4 flex items-center gap-2'>

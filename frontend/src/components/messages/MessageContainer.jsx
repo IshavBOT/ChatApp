@@ -1,13 +1,19 @@
+import { useEffect } from "react";
+import useConversation from "../../zustand/useConversation";
+import Conversation from "../sidebar/Conversation";
 import MessageInput from "./MessageInput";
 import Messages from "./Messages";
 import {TiMessages} from "react-icons/ti"
 
 const MessageContainer = () => {
-    const noChatSelected = true
+    const {selectedConversation,setSelectedConversation} = useConversation()
+    useEffect(()=>{
+        return setSelectedConversation(null)
+    },[setSelectedConversation])
 
 	return (
 		<div className='md:min-w-[450px] flex flex-col'>
-			{noChatSelected ? <NoChatSelected /> :(
+			{!selectedConversation ? <NoChatSelected /> :(
                 <>
 
             
@@ -17,15 +23,15 @@ const MessageContainer = () => {
 						<div className='avatar online'>
 							<div className='w-12 rounded-full ring ring-sky-500 ring-offset-2 ring-offset-gray-800'>
 								<img
-									src='https://cdn0.iconfinder.com/data/icons/communication-line-10/24/account_profile_user_contact_person_avatar_placeholder-512.png'
+									src={selectedConversation.profilePic}
 									alt='user avatar'
 									className='object-cover hover:scale-105 transition-transform duration-300'
 								/>
 							</div>
 						</div>
 						<div>
-							<h3 className='font-bold text-lg text-gray-200'>John Doe</h3>
-							<p className='text-sm text-gray-400'>Active Now</p>
+							<h3 className='font-bold text-lg text-gray-200'>{selectedConversation.fullName}</h3>
+							{/* <p className='text-sm text-white-400'>Active Now</p> */}
 						</div>
 					</div>
 				</div>
