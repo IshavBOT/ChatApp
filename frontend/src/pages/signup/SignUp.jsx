@@ -137,7 +137,7 @@ const SignUp = () => {
 			<div className='w-full p-6 rounded-xl shadow-2xl bg-gray-800/40 bg-clip-padding backdrop-filter backdrop-blur-lg border border-gray-700/50'>
 				<h1 className='text-3xl font-bold text-center text-white mb-6'>
 					Sign Up to
-					<span className='text-blue-500 ml-2'>ChatApp</span>
+					<span className='text-blue-500 ml-2'>BlahBlah</span>
 				</h1>
 
 				<form onSubmit={handleSubmit} className='space-y-4'>
