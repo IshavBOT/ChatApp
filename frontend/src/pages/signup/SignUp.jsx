@@ -106,9 +106,32 @@
 // export default SignUp;
 
 // STARTER CODE FOR THE SIGNUP COMPONENT
+import { Link } from "react-router-dom";
 import GenderCheckbox from "./GenderCheckbox";
+import { useState } from "react";
+import useSignup from "../../hooks/useSignup";
 
 const SignUp = () => {
+
+	const [inputs,setInputs] = useState({
+		fullName:'',
+		username:'',
+		password:'',
+		confirmPassword:'',
+		gender:''
+	})
+
+	const {signup,loading} = useSignup()
+
+	const handleSubmit = async(e)=>{
+		e.preventDefault()
+		await signup(inputs)
+	}
+
+	const handleCheckboxChange =(gender)=>{
+		setInputs({...inputs,gender})
+	}
+
 	return (
 		<div className='flex flex-col items-center justify-center min-w-80 mx-auto'>
 			<div className='w-full p-6 rounded-xl shadow-2xl bg-gray-800/40 bg-clip-padding backdrop-filter backdrop-blur-lg border border-gray-700/50'>
@@ -117,7 +140,7 @@ const SignUp = () => {
 					<span className='text-blue-500 ml-2'>ChatApp</span>
 				</h1>
 
-				<form className='space-y-4'>
+				<form onSubmit={handleSubmit} className='space-y-4'>
 					<div>
 						<label className='block text-gray-300 text-xs font-medium mb-1'>
 							Full Name
@@ -126,6 +149,9 @@ const SignUp = () => {
 							type='text' 
 							placeholder='Ishav Manav' 
 							className='w-full px-3 py-2 rounded-lg bg-gray-700/50 border border-gray-600 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 transition duration-200'
+						value ={inputs.fullName}
+						onChange={(e)=> setInputs({...inputs, fullName:e.target.value})}
+						
 						/>
 					</div>
 
@@ -137,6 +163,9 @@ const SignUp = () => {
 							type='text' 
 							placeholder='notishav' 
 							className='w-full px-3 py-2 rounded-lg bg-gray-700/50 border border-gray-600 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 transition duration-200'
+
+							value ={inputs.username}
+							onChange={(e)=> setInputs({...inputs, username:e.target.value})}	
 						/>
 					</div>
 
@@ -148,6 +177,9 @@ const SignUp = () => {
 							type='password'
 							placeholder='Enter Password'
 							className='w-full px-3 py-2 rounded-lg bg-gray-700/50 border border-gray-600 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 transition duration-200'
+
+							value ={inputs.password}
+						onChange={(e)=> setInputs({...inputs, password:e.target.value})}
 						/>
 					</div>
 
@@ -159,19 +191,23 @@ const SignUp = () => {
 							type='password'
 							placeholder='Confirm Password'
 							className='w-full px-3 py-2 rounded-lg bg-gray-700/50 border border-gray-600 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 transition duration-200'
+
+							value ={inputs.confirmPassword}
+						onChange={(e)=> setInputs({...inputs, confirmPassword:e.target.value})}
 						/>
 					</div>
 
-					<GenderCheckbox />
+					<GenderCheckbox onCheckboxChange={handleCheckboxChange} selectedGender={inputs.gender} />
 
 					<div className='flex items-center justify-between'>
-						<a href='#' className='text-xs text-gray-400 hover:text-blue-500 transition duration-200'>
+						<Link to='/login' className='text-xs text-gray-400 hover:text-blue-500 transition duration-200'>
 							Already have an account?
-						</a>
+						</Link>
 					</div>
 
-					<button className='w-full bg-blue-600 text-white py-2 px-3 rounded-lg text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition duration-200'>
-						Sign Up
+					<button className='w-full bg-blue-600 text-white py-2 px-3 rounded-lg text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition duration-200'
+					disabled={loading}>
+						{loading ?<span className="loading loading-spinner"></span>:"Sign Up"}
 					</button>
 				</form>
 			</div>
