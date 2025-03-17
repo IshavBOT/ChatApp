@@ -24,6 +24,9 @@ function App() {
         </Routes>
         <Toaster />
       </div>
+      <div className="fixed bottom-4 right-4 text-white font-mono">
+        With ღ by Ishav
+      </div>
     </>
   )
 }
